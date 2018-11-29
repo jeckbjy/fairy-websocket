@@ -30,7 +30,7 @@ type wsTran struct {
 	websocket.Upgrader
 }
 
-func (*wsTran) Connect(host string) (net.Conn, error) {
+func (*wsTran) Connect(host string, options ...fairy.Option) (net.Conn, error) {
 	conn, _, err := websocket.DefaultDialer.Dial(host, nil)
 	if err != nil {
 		return nil, err
@@ -39,7 +39,7 @@ func (*wsTran) Connect(host string) (net.Conn, error) {
 	return &wsConn{Conn: conn}, nil
 }
 
-func (*wsTran) Listen(host string) (net.Listener, error) {
+func (*wsTran) Listen(host string, options ...fairy.Option) (net.Listener, error) {
 	return net.Listen("tcp", host)
 }
 
